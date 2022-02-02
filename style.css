@@ -1,0 +1,21 @@
+* {
+	box-sizing: border-box;
+}
+
+body{
+    background-color: #EEF9BF;
+    font-family: 'Roboto', sans-serif;
+}
+
+header{
+    color: #75B79E;
+    font-weight: bold;
+    font-size: 56px;
+    line-height: 66px;
+    letter-spacing: -0.004em;
+    margin: 40px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
