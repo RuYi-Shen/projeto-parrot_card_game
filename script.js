@@ -1,9 +1,59 @@
 let cardNumber = 0;
+let cards = [];
+let parrots = [
+    "bobrossparrot",
+    "explodyparrot",
+    "fiestaparrot",
+    "metalparrot",
+    "revertitparrot",
+    "tripletsparrot",
+    "unicornparrot",
+];
+
 
 ask4Cards();
+ask4Game();
 
 function ask4Cards(){
     while(cardNumber > 14 || cardNumber < 4 || cardNumber%2 != 0){
         cardNumber = prompt("Com quantas cartas deseja jogar? (4 a 14)");
     } 
+    suffleCards(parrots);
+    createCards();
+}
+
+function createCards(){
+    cards = parrots.slice(0,cardNumber/2);
+    cards = cards.concat(cards);
+    suffleCards(cards);
+
+    for(let i = 0; i < cardNumber ; i++){
+        document.querySelector(".cards").innerHTML += 
+        `<div class="card ${cards[i]}" data-identifier="card">
+            <div class="back-face face" data-identifier="back-face" onclick = "turnCard(this, ${i})">
+                <img src="media/front.png" alt="parrot">
+            </div>
+            <div class="front-face face" data-identifier="front-face">
+                <img src="media/${cards[i]}.gif" alt="${cards[i]}">
+            </div>
+        </div>`
+    }
+}
+
+function suffleCards(deck){
+    deck.sort(comparador);
+}
+
+function turnCard(element,index){
+    document.querySelectorAll(".front-face")[index].style.transform = "rotateY(0deg)";
+    element.style.transform = "rotateY(180deg)";
+    //element.parentNode.lastChild.style.transform = "rotateY(0deg)";
+}
+
+function comparador() { 
+	return Math.random() - 0.5; 
+}
+
+function ask4Game(){
+
 }
