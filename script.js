@@ -5,6 +5,7 @@ let correctPairs = 0;
 let currentCard;
 let currentSuit = "";
 let firstCard = true;
+let cardUntap = true;
 
 let cards = [];
 let parrots = [
@@ -54,23 +55,26 @@ function suffleCards(deck){
 }
 
 function turnCard(index,cardName){
-    moves++;
-    currentCardIndex = index;
-    turnFront();
-    if(firstCard){
-        currentSuit = cardName;
-        firstCard = false;
-        firstCardIndex = index;
-    }
-    else{
-        if(currentSuit == cardName){
-            correctPairs++;
-            console.log(cardName);
+    if(cardUntap){
+        moves++;
+        currentCardIndex = index;
+        turnFront();
+        if(firstCard){
+            currentSuit = cardName;
+            firstCard = false;
+            firstCardIndex = index;
         }
         else{
-            setTimeout(turnBack, 1000);
+            if(currentSuit == cardName){
+                correctPairs++;
+                console.log(cardName);
+            }
+            else{
+                cardUntap = false;
+                setTimeout(turnBack, 1000);
+            }
+            firstCard = true;
         }
-        firstCard = true;
     }
 }
 
@@ -87,6 +91,7 @@ function turnBack(){
     document.querySelectorAll(".back-face")[firstCardIndex].style.transform = "rotateY(0deg)";
     document.querySelectorAll(".front-face")[currentCardIndex].style.transform = "rotateY(180deg)";
     document.querySelectorAll(".back-face")[currentCardIndex].style.transform = "rotateY(0deg)";
+    cardUntap = true;
 }
 
 function turnFront(){
