@@ -67,6 +67,9 @@ function turnCard(index,cardName){
         else{
             if(currentSuit == cardName){
                 correctPairs++;
+                if(correctPairs == cardNumber/2){
+                    setTimeout(endGameMessage, 500);
+                }
                 console.log(cardName);
             }
             else{
@@ -97,4 +100,8 @@ function turnBack(){
 function turnFront(){
     document.querySelectorAll(".front-face")[currentCardIndex].style.transform = "rotateY(0deg)";
     document.querySelectorAll(".back-face")[currentCardIndex].style.transform = "rotateY(-180deg)";
+}
+
+function endGameMessage(){
+    alert(`Você ganhou em ${moves} jogadas!`)
 }
