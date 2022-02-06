@@ -1,6 +1,9 @@
 let cardNumber = 0;
 let moves = 0;
 let time = 0;
+
+let myInterval;
+
 let correctPairs = 0;
 let currentCard;
 let currentSuit = "";
@@ -55,6 +58,9 @@ function suffleCards(deck){
 }
 
 function turnCard(index,cardName){
+    if(time == 0){
+        myInterval = setInterval(timeCounter,1000);
+    }
     if(cardUntap){
         moves++;
         currentCardIndex = index;
@@ -68,6 +74,7 @@ function turnCard(index,cardName){
             if(currentSuit == cardName){
                 correctPairs++;
                 if(correctPairs == cardNumber/2){
+                    clearInterval(myInterval);
                     setTimeout(endGameMessage, 500);
                 }
                 console.log(cardName);
@@ -104,4 +111,9 @@ function turnFront(){
 
 function endGameMessage(){
     alert(`Você ganhou em ${moves} jogadas!`)
+}
+
+function timeCounter(){
+    time++;
+    document.querySelector("time").innerHTML = time;
 }
