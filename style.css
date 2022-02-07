@@ -20,6 +20,14 @@ header{
     text-align: center;
 }
 
+time{
+    color: red;
+    font-size: 20px;
+    position: fixed;
+    top: 2vh;
+    right: 2vw;
+}
+
 main{
     margin: -10px 93px;
 }
@@ -53,19 +61,12 @@ main{
     transform-style: preserve-3d;
   }
 
-  .front-face {
+.front-face {
     transform: rotateY(180deg);
-  }
+}
 
-  img{
+img{
     width: 100px;
     height: 100px;
-  }
-  
-  time{
-      color: red;
-      font-size: 20px;
-      position: fixed;
-      top: 5vh;
-      right: 5vw;
-  }
+}
+
