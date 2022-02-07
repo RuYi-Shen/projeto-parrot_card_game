@@ -140,9 +140,7 @@ function ask4Game(){
     }
     if(anotherGame == "S"){
         startGame();
-        //window.location.reload();
     }
-    //console.log(time);
 }
 
 function timeCounter(){
