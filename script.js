@@ -24,6 +24,9 @@ let parrots = [
 let firstCardIndex = 0;
 let currentCardIndex = 0;
 
+let timeFlag = true;
+
+
 function startGame(){
     correctPairs = 0;
     cardNumber = 0;
@@ -33,11 +36,12 @@ function startGame(){
     currentSuit = "";
     firstCard = true;
     cardUntap = true;
+    timeFlag = true;
 
     cards = [];
     document.querySelector("time").innerHTML = "";
-
-    stopInterval();
+    clearInterval(myInterval);
+    
     ask4Cards();
 }
 
@@ -77,10 +81,11 @@ function comparador() {
 }
 
 function turnCard(index,cardName){
-
-    timerInit();
-
     if(cardUntap && cardTap){
+        if(timeFlag){
+            timerInit();
+        }
+        timeFlag = false;
         moves++;
         currentCardIndex = index;
         cardTap = false;
@@ -94,7 +99,7 @@ function turnCard(index,cardName){
             if(currentSuit == cardName){
                 correctPairs++;
                 if(correctPairs == cardNumber/2){
-                    stopInterval();
+                    clearInterval(myInterval);
                     setTimeout(endGameMessage, 500);
                 }
             }
@@ -135,7 +140,9 @@ function ask4Game(){
     }
     if(anotherGame == "S"){
         startGame();
+        //window.location.reload();
     }
+    //console.log(time);
 }
 
 function timeCounter(){
