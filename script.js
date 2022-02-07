@@ -24,15 +24,6 @@ let parrots = [
 let firstCardIndex = 0;
 let currentCardIndex = 0;
 
-startGame();
-
-function ask4Cards(){
-    while(cardNumber > 14 || cardNumber < 4 || cardNumber%2 != 0){
-        cardNumber = prompt("Com quantas cartas deseja jogar? (4 a 14)");
-    } 
-    createCards();
-}
-
 
 function startGame(){
     correctPairs = 0;
@@ -49,6 +40,13 @@ function startGame(){
     clearInterval(myInterval);
 
     ask4Cards();
+}
+
+function ask4Cards(){
+    while(cardNumber > 14 || cardNumber < 4 || cardNumber%2 != 0){
+        cardNumber = prompt("Com quantas cartas deseja jogar? (4 a 14)");
+    } 
+    createCards();
 }
 
 function createCards(){
@@ -75,10 +73,14 @@ function suffleCards(deck){
     deck.sort(comparador);
 }
 
+function comparador() { 
+	return Math.random() - 0.5; 
+}
+
 function turnCard(index,cardName){
     if(time == 0){
         document.querySelector("time").innerHTML = time;
-        myInterval = setInterval(timeCounter,1000);
+        myInterval = setInterval(timeCounter, 1000);
     }
     if(cardUntap && cardTap){
         moves++;
@@ -107,20 +109,6 @@ function turnCard(index,cardName){
     }
 }
 
-function comparador() { 
-	return Math.random() - 0.5; 
-}
-
-function ask4Game(){
-    let anotherGame = prompt("Quer jogar novamente? (S/n)");
-    while(anotherGame != "S" && anotherGame != "n"){
-        anotherGame = prompt("Quer jogar novamente? (S/n)");
-    }
-    if(anotherGame == "S"){
-        startGame();
-    }
-}
-
 function turnBack(){
     document.querySelectorAll(".front-face")[firstCardIndex].style.transform = "rotateY(180deg)";
     document.querySelectorAll(".back-face")[firstCardIndex].style.transform = "rotateY(0deg)";
@@ -136,9 +124,21 @@ function turnFront(){
 }
 
 function endGameMessage(){
-    clearInterval(myInterval);
     alert(`Você ganhou em ${moves} jogadas e em ${time} segundos!`);
     ask4Game();
+    stopInterval();
+}
+
+function ask4Game(){
+    let anotherGame = prompt("Quer jogar novamente? (S/n)");
+    while(anotherGame != "S" && anotherGame != "n"){
+        anotherGame = prompt("Quer jogar novamente? (S/n)");
+    }
+    if(anotherGame == "S"){
+        // startGame();
+        window.location.reload();
+    }
+    console.log(time);
 }
 
 function timeCounter(){
@@ -149,3 +149,10 @@ function timeCounter(){
 function delay500ms(){
     cardTap = true;
 }
+
+function stopInterval(){
+    clearInterval(myInterval);
+}
+
+startGame();
+
