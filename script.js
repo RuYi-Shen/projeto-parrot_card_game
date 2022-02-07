@@ -24,7 +24,6 @@ let parrots = [
 let firstCardIndex = 0;
 let currentCardIndex = 0;
 
-
 function startGame(){
     correctPairs = 0;
     cardNumber = 0;
@@ -37,8 +36,7 @@ function startGame(){
 
     cards = [];
     document.querySelector("time").innerHTML = "";
-    clearInterval(myInterval);
-
+    
     ask4Cards();
 }
 
@@ -78,10 +76,9 @@ function comparador() {
 }
 
 function turnCard(index,cardName){
-    if(time == 0){
-        document.querySelector("time").innerHTML = time;
-        myInterval = setInterval(timeCounter, 1000);
-    }
+
+    timerInit();
+
     if(cardUntap && cardTap){
         moves++;
         currentCardIndex = index;
@@ -96,7 +93,7 @@ function turnCard(index,cardName){
             if(currentSuit == cardName){
                 correctPairs++;
                 if(correctPairs == cardNumber/2){
-                    clearInterval(myInterval);
+                    stopInterval();
                     setTimeout(endGameMessage, 500);
                 }
             }
@@ -126,7 +123,7 @@ function turnFront(){
 function endGameMessage(){
     alert(`Você ganhou em ${moves} jogadas e em ${time} segundos!`);
     ask4Game();
-    stopInterval();
+    
 }
 
 function ask4Game(){
@@ -135,10 +132,8 @@ function ask4Game(){
         anotherGame = prompt("Quer jogar novamente? (S/n)");
     }
     if(anotherGame == "S"){
-        // startGame();
-        window.location.reload();
+        startGame();
     }
-    console.log(time);
 }
 
 function timeCounter(){
@@ -153,6 +148,13 @@ function delay500ms(){
 function stopInterval(){
     clearInterval(myInterval);
 }
+
+function timerInit(){
+    if(time === 0){
+        document.querySelector("time").innerHTML = time;
+        myInterval = setInterval(timeCounter, 1000);
+    }
+};
 
 startGame();
 
