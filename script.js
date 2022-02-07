@@ -36,7 +36,8 @@ function startGame(){
 
     cards = [];
     document.querySelector("time").innerHTML = "";
-    
+
+    stopInterval();
     ask4Cards();
 }
 
@@ -121,6 +122,7 @@ function turnFront(){
 }
 
 function endGameMessage(){
+    stopInterval();
     alert(`Você ganhou em ${moves} jogadas e em ${time} segundos!`);
     ask4Game();
     
